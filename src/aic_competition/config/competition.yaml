@@ -1,0 +1,118 @@
+schema_version: 1
+# These are legacy example coordinates, NOT a surveyed competition map.
+calibration:
+  waypoints: false
+  camera_axes: false
+  aim_offsets: false
+  marker_ids: false
+  serial_protocol: false
+  velocity_mux: false
+  localization: false
+  driver_watchdog: false
+map_frame: map
+base_frame: base_link
+camera_frame: usb_cam
+image_width: 640
+image_height: 480
+loop_hz: 25
+mission_timeout: 120.0
+navigation_timeout: 60.0 # Screenshot goto(): wait_for_result(Duration(60)).
+service_timeout: 10.0
+recognition_timeout: 40.0 # Includes API acquisition/polling; see api_total_timeout below.
+api_request_timeout: 12.0
+api_total_timeout: 30.0
+api_attempts: 2
+speech_timeout: 25.0
+sensor_timeout: 0.35
+lease_timeout: 0.40
+velocity_timeout: 0.25
+localization_timeout: 1.5
+amcl_pose_timeout: 120.0
+max_xy_variance: 0.10
+max_yaw_variance: 0.15
+arrival_xy_tolerance: 0.12
+arrival_yaw_tolerance_deg: 10.0
+linear_limit: 0.25
+angular_limit: 0.50
+settle_time: 0.60
+shot_wait: 0.65
+fire_max_sample_age: 0.20
+fire_max_linear_speed: 0.025
+fire_max_angular_speed: 0.04
+ring_message_type: objects_stamped
+# "hybrid" accepts strict multi-frame local matches first, then falls back to Doubao.
+# "api" and "local" remain available for isolated testing.
+vision_backend: hybrid
+journal: ~/.ros/aic_competition/mission.jsonl
+topics:
+  image: /usb_cam/image_raw
+  ring: /objectsStamped
+  ar: /ar_pose_marker
+  amcl: /amcl_pose
+  odom: /odom
+  move_base: /move_base
+  tts_service: /tts_service
+serial:
+  port: /dev/shoot
+  baudrate: 9600
+  write_timeout: 0.10
+  pulse_seconds: 0.09
+  cooldown_seconds: 0.45
+  start_hex: '55 01 12 00 00 00 01 69'
+  stop_hex: '55 01 11 00 00 00 01 68'
+# All yaw values below are DEGREES (ROS messages are converted to radians).
+# record_waypoint.py records new poses; map axes are NOT inferred from the drawing.
+waypoints:
+  recognition: [0.50, -0.40, 90.0]
+  ring: [1.18, -0.39, 0.0]
+  corridor_1: [0.31, -0.39, 0.0]
+  corridor_2: [0.31, -1.65, 0.0]
+  rotating: [1.16, -1.65, 0.0]
+  corridor_3: [0.31, -2.90, 0.0]
+  moving: [1.14, -2.90, 0.0]
+  finish: [0.31, -2.90, 0.0]
+routes:
+  recognition: [recognition]
+  ring: [ring]
+  rotating: [corridor_1, corridor_2, rotating]
+  moving: [corridor_2, corridor_3, moving]
+  finish: [corridor_3, finish]
+aim:
+  ring:
+    pulse_seconds: 0.09 # Screenshot find_cb.
+    object_ids: [113]  # Actual file abot_find/shoot_object/113.png; not screenshot ID 50.
+    setpoint: 320.0   # PIXELS; calibrate barrel-camera offset at the ring target distance.
+    tolerance: 2.0    # Screenshot find_cb: abs(point.x - 320) <= 2.
+    kp: 0.02         # Screenshot gain; new angular cap still applies.
+    max_angular: 0.35
+    timeout: 25.0
+    samples: 4
+    dwell_seconds: 0.25
+    max_sample_gap: 0.20
+    prediction_seconds: 0.0
+    y_window: []
+  rotating:
+    pulse_seconds: 0.10 # Screenshot ar_cb.
+    setpoint: 0.105   # METRES in camera frame; provisional midpoint of screenshot 0.07..0.14.
+    tolerance: 0.035  # Midpoint +/- 0.035 reproduces the [0.07, 0.14] window.
+    kp: 0.95         # Screenshot gain, applied to offset-corrected error.
+    max_angular: 0.30
+    timeout: 30.0
+    samples: 3
+    dwell_seconds: 0.12
+    max_sample_gap: 0.20
+    prediction_seconds: 0.0
+    absolute_y: true
+    y_window: [0.18, 0.24] # Provisional screenshot window; verify against your rotating target.
+  moving:
+    pulse_seconds: 0.10 # Screenshot ar_cb.
+    setpoint: 0.05    # SIGNED camera X, not abs(X). Calibrate the correct side of barrel.
+    tolerance: 0.01
+    kp: 0.95
+    max_angular: 0.30
+    timeout: 30.0
+    samples: 3
+    dwell_seconds: 0.06
+    max_sample_gap: 0.20
+    prediction_seconds: 0.0 # Optional linear lead only after measuring shot latency.
+    y_window: []

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "test_kind": "start_pose_motion_test",
+  "initial_heading": "起点固定位置，车头/摄像头正对三个靶子的方向",
+  "speed_m_s": 0.3,
+  "turn_speed_rad_s": 1.2,
+  "shots_per_position": 2,
+  "after_return": {
+    "map_note": "识别区播报后回转，前进到1号理论射击位；完成配置的两次发射流程后后退回公共通道。",
+    "approach_distance_m": 0.72,
+    "retreat_distance_m": 0.86
+  },
+  "after_retreat": {
+    "map_note": "从1号回退位置沿图示横向通道依次到2号、3号理论射击位；不转弯。每个射击位执行配置的两次脉冲，不识别或瞄准。3号位回退后，再向右平移return_to_finish_strafe_m，作为终点方向的接续短移；不是终点到达保证。",
+    "to_second_strafe_m": 1.31,
+    "to_second_approach_m": 0.88,
+    "from_second_retreat_m": 0.97,
+    "to_third_strafe_m": 1.26,
+    "to_third_approach_m": 1.01,
+    "from_third_retreat_m": 1.12,
+    "return_to_finish_strafe_m": 0.38
+  },
+  "steps": [
+    {
+      "name": "起点右移",
+      "action": "strafe_right",
+      "target_distance_m": 0.36,
+      "seconds": null
+    },
+    {
+      "name": "起点前进",
+      "action": "forward",
+      "target_distance_m": 0.39,
+      "seconds": null
+    },
+    {
+      "name": "逆时针转向",
+      "action": "left",
+      "target_angle_deg": 96,
+      "seconds": null
+    }
+  ]
+}

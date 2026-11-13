@@ -1,0 +1,21 @@
+<launch>
+  <arg name="dry_run" default="true"/>
+  <arg name="config_file" default="$(find aic_competition)/config/competition.yaml"/>
+  <arg name="vision_backend" default="api"/>
+  <param name="/use_sim_time" value="false"/>
+  <rosparam command="load" file="$(arg config_file)" ns="/competition/config"/>
+  <param name="/competition/config/vision_backend" value="$(arg vision_backend)"/>
+  <group unless="$(arg dry_run)">
+    <node pkg="aic_competition" type="safety_bridge.py" name="competition_safety_bridge" output="screen" required="true">
+      <param name="dry_run" value="false"/>
+    </node>
+    <node if="$(eval arg('vision_backend') in ['local', 'hybrid'])" pkg="aic_competition" type="local_vision.py"
+          name="competition_local_vision" output="screen" required="true">
+      <param name="timeout" value="$(eval 3.0 if arg('vision_backend') == 'hybrid' else 18.0)"/>
+      <param name="stable_frames" value="3"/>
+    </node>
+  </group>
+  <node pkg="aic_competition" type="competition_node.py" name="competition_mission" output="screen" required="true">
+    <param name="dry_run" value="$(arg dry_run)"/>
+  </node>
+</launch>

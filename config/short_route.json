@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "initial_heading": "短测时车头朝事先选定的安全前方，不代表赛场朝向",
+  "speed_m_s": 0.05,
+  "turn_speed_rad_s": 0.2,
+  "steps": [
+    {
+      "name": "基础前进短测，非定距、不代表比赛第一段",
+      "action": "forward",
+      "seconds": 0.25
+    }
+  ]
+}

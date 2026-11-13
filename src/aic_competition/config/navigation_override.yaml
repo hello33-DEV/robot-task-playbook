@@ -1,0 +1,21 @@
+controller_frequency: 15.0
+controller_patience: 8.0
+DWAPlannerROS:
+  max_vel_x: 0.25
+  min_vel_x: -0.15
+  max_vel_y: 0.20
+  min_vel_y: -0.20
+  max_vel_trans: 0.25
+  min_vel_trans: 0.04
+  max_vel_theta: 0.50
+  min_vel_theta: 0.10
+  min_in_place_vel_theta: 0.10
+  acc_lim_x: 0.8
+  acc_lim_y: 0.8
+  acc_lim_theta: 1.0
+  xy_goal_tolerance: 0.08
+  yaw_goal_tolerance: 0.08
+  vx_samples: 16
+  vy_samples: 10
+  vth_samples: 24
+  latch_xy_goal_tolerance: true

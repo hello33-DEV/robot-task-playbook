@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "initial_heading": null,
+  "speed_m_s": 0.08,
+  "turn_speed_rad_s": 0.2,
+  "route_checks": {
+    "layout_and_start_pose": false,
+    "motion_timings": false,
+    "physical_stop_and_watchdog": false,
+    "individual_steps_tested": false
+  },
+  "steps": [
+    {
+      "name": "01 起点前进至蓝色识别位，拟定车头朝图上方",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "02 识别位停车驻留，不调用识别",
+      "action": "stop",
+      "seconds": 2.0,
+      "checkpoint": "识别位"
+    },
+    {
+      "name": "03 原地右转，目标90度后朝图右方",
+      "action": "right",
+      "seconds": null
+    },
+    {
+      "name": "04 前进至1号任务框进出中心线下方",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "05 原地左转，目标90度后朝图上方",
+      "action": "left",
+      "seconds": null
+    },
+    {
+      "name": "06 前进驶入1号任务框停车位置",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "07 1号任务位停车驻留，不发射",
+      "action": "stop",
+      "seconds": 2.0,
+      "checkpoint": "1号任务位"
+    },
+    {
+      "name": "08 车头保持朝上，倒车至整个车身退出隔板并可转弯的公共通道",
+      "action": "backward",
+      "seconds": null
+    },
+    {
+      "name": "09 原地右转，目标90度后朝图右方",
+      "action": "right",
+      "seconds": null
+    },
+    {
+      "name": "10 沿公共通道前进至2号任务框进出中心线下方",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "11 原地左转，目标90度后朝图上方",
+      "action": "left",
+      "seconds": null
+    },
+    {
+      "name": "12 前进驶入2号任务框停车位置",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "13 2号任务位停车驻留，不发射",
+      "action": "stop",
+      "seconds": 2.0,
+      "checkpoint": "2号任务位"
+    },
+    {
+      "name": "14 车头保持朝上，倒车至整个车身退出隔板并可转弯的公共通道",
+      "action": "backward",
+      "seconds": null
+    },
+    {
+      "name": "15 原地右转，目标90度后朝图右方",
+      "action": "right",
+      "seconds": null
+    },
+    {
+      "name": "16 沿公共通道前进至3号任务框进出中心线下方",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "17 原地左转，目标90度后朝图上方",
+      "action": "left",
+      "seconds": null
+    },
+    {
+      "name": "18 前进驶入3号任务框停车位置",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "19 3号任务位停车驻留，不发射",
+      "action": "stop",
+      "seconds": 2.0,
+      "checkpoint": "3号任务位"
+    },
+    {
+      "name": "20 车头保持朝上，倒车至整个车身退出隔板并可转弯的公共通道",
+      "action": "backward",
+      "seconds": null
+    },
+    {
+      "name": "21 原地右转，目标90度后朝图右方",
+      "action": "right",
+      "seconds": null
+    },
+    {
+      "name": "22 沿公共通道前进至终点框进入中心线上方",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "23 原地右转，目标90度后朝图下方",
+      "action": "right",
+      "seconds": null
+    },
+    {
+      "name": "24 前进驶入终点框，使整个车身进入要求范围",
+      "action": "forward",
+      "seconds": null
+    },
+    {
+      "name": "25 终点停车并结束，不循环",
+      "action": "stop",
+      "seconds": 2.0,
+      "checkpoint": "终点"
+    }
+  ]
+}
